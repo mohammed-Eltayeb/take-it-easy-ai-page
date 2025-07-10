@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Assistant - Smart Symptom Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <h1>AI Medical Assistant</h1>
+            </div>
+            <p class="subtitle">Smart Symptom Analysis & Health Insights</p>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section">
+                <div class="input-container">
+                    <label for="symptoms" class="input-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11H5a2 2 0 0 0-2 2v3c0 1.1.9 2 2 2h4m6-6h4a2 2 0 0 1 2 2v3c0 1.1-.9 2-2 2h-4m-6 0a2 2 0 0 1-2-2v-3c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2v3c0 1.1-.9 2-2 2H9z"/>
+                        </svg>
+                        Describe your symptoms
+                    </label>
+                    <textarea 
+                        id="symptoms" 
+                        placeholder="Example: I have a severe headache, dizziness, and nausea for the past two days..."
+                        rows="4"
+                    ></textarea>
+                </div>
+                
+                <div class="additional-info">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" min="1" max="120" placeholder="25">
+                        </div>
+                        <div class="info-item">
+                            <label for="gender">Gender</label>
+                            <select id="gender">
+                                <option value="">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="info-item">
+                            <label for="duration">Symptom Duration</label>
+                            <select id="duration">
+                                <option value="">Select</option>
+                                <option value="hours">Hours</option>
+                                <option value="days">Days</option>
+                                <option value="weeks">Weeks</option>
+                                <option value="months">Months</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="analyzeBtn" class="analyze-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4"/>
+                        <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+                    </svg>
+                    Analyze Symptoms
+                </button>
+            </div>
+
+            <div id="loadingDiv" class="loading-container" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Analyzing your symptoms...</p>
+            </div>
+
+            <div id="resultsDiv" class="results-section" style="display: none;">
+                <h2 class="results-title">Analysis Results</h2>
+                
+                <div class="diagnosis-container">
+                    <div class="diagnosis-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11H5a2 2 0 0 0-2 2v3c0 1.1.9 2 2 2h4m6-6h4a2 2 0 0 1 2 2v3c0 1.1-.9 2-2 2h-4m-6 0a2 2 0 0 1-2-2v-3c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2v3c0 1.1-.9 2-2 2H9z"/>
+                        </svg>
+                        <h3>Possible Conditions</h3>
+                    </div>
+                    <div id="diagnosisContent" class="diagnosis-content"></div>
+                </div>
+
+                <div class="treatment-container">
+                    <div class="treatment-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7z"/>
+                        </svg>
+                        <h3>Recommended Treatment</h3>
+                    </div>
+                    <div id="treatmentContent" class="treatment-content"></div>
+                </div>
+
+                <div class="warning-container">
+                    <div class="warning-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <h3>Important Notice</h3>
+                    </div>
+                    <p>This analysis is for informational purposes only and is not a substitute for professional medical advice. Please consult with a qualified healthcare provider for accurate diagnosis and appropriate treatment.<br>
+                    IF there is any proplem please call <a href="">support</a></p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 AI Medical Assistant</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
